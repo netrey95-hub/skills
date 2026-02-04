@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Генератор боевых параметров</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <h1>Генератор боевых параметров</h1>
+      <p class="muted">Кликай, копи БУ, покупай генерации. Всё рандомно, без подкрутки (используется <code>crypto.getRandomValues</code>).</p>
+    </header>
+
+    <section class="card">
+      <div class="row">
+        <div>
+          <div class="label">Твои очки БУ</div>
+          <div class="big" id="points">0</div>
+        </div>
+        <button class="btn" id="clickBtn">+250 БУ</button>
+      </div>
+      <div class="muted small">
+        Очки сохраняются в браузере (localStorage).
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Покупка генерации</h2>
+
+      <div class="grid">
+        <label class="field">
+          <span class="label">Вариант генерации</span>
+          <select id="genType">
+            <option value="normal">Обычная — 4000 БУ</option>
+            <option value="balance">Баланс (каждый 15–40%) — 6000 БУ</option>
+            <option value="bias_medium">Средний уклон — 5500 БУ</option>
+            <option value="bias_big">Большой уклон — 8500 БУ</option>
+          </select>
+        </label>
+
+        <div class="field" id="groupBox" style="display:none;">
+          <span class="label">Группа уклона</span>
+          <div class="segmented" role="group" aria-label="Выбор группы">
+            <button class="seg" data-group="speed" type="button">💨 Скорость</button>
+            <button class="seg" data-group="defense" type="button">🛡️ Защита</button>
+            <button class="seg" data-group="attack" type="button">⚔️ Нападение</button>
+          </div>
+          <div class="muted small" id="groupHint"></div>
+        </div>
+      </div>
+
+      <div class="row mt">
+        <div class="muted" id="costHint">Стоимость: 4000 БУ</div>
+        <button class="btn primary" id="rollBtn">Сгенерировать</button>
+      </div>
+
+      <div class="muted small mt">
+        <details>
+          <summary>Правила</summary>
+          <ul>
+            <li><b>Обычная:</b> 100% случайно распределяются между 5 навыками.</li>
+            <li><b>Уклон:</b> сначала случайно распределяется <b>минимум</b> в выбранную группу, потом оставшееся случайно распределяется по всем 5 навыкам (в т.ч. снова может попасть в эту же группу).</li>
+            <li><b>Большой уклон:</b> скорость/защита ≥ 70%, нападение ≥ 40%.</li>
+            <li><b>Средний уклон:</b> скорость/защита ≥ 40%, нападение ≥ 25%.</li>
+            <li><b>Баланс:</b> каждый из 5 параметров в диапазоне 15%…40% включительно, сумма 100%.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Результат</h2>
+      <div id="result" class="result muted">Пока пусто. Накликай БУ и нажми “Сгенерировать”.</div>
+
+      <div class="row mt">
+        <button class="btn ghost" id="resetBtn" title="Сбросить БУ и историю в этом браузере">Сбросить всё</button>
+        <div class="muted small" id="sumCheck"></div>
+      </div>
+    </section>
+
+    <footer class="footer muted small">
+      Крутёж лучший.
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
