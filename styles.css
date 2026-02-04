@@ -141,4 +141,20 @@ h2{
   margin-top: 10px;
   text-align: center;
 }
+
 code{color:#d7e6ff}
+
+:root { color-scheme: dark; }
+
+/* Сам закрытый селект */
+.field select{
+  background: #0b0f14;
+  color: #e7edf7;
+  border-color: rgba(255,255,255,.12);
+}
+
+/* Попытка покрасить выпадающие пункты (работает не везде, но пусть будет) */
+.field select option{
+  background: #0b0f14;
+  color: #e7edf7;
+}
